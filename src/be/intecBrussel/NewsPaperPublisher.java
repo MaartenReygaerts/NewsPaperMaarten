@@ -6,7 +6,7 @@ import be.intecBrussel.Interfaces.Subscriber;
 
 public class NewsPaperPublisher implements Publisher {
     String name;
-    Subscriber[] subscriber;
+    Subscriber[] subscribers = new Subscriber[100];
 
     public String getName() {
         return name;
@@ -17,17 +17,23 @@ public class NewsPaperPublisher implements Publisher {
     }
 
     public Subscriber[] getSubscriber() {
-        return subscriber;
+        return subscribers;
     }
 
     public void setSubscriber(Subscriber[] subscriber) {
-        this.subscriber = subscriber;
+        this.subscribers = subscriber;
     }
 
     //interface implements
     @Override
-    public void subscribe(Subscriber newSubscriber) {
+    public void subscribe(Subscriber subscriber) {
+        for (int i = 0; i< subscribers.length;i++){
+            if(subscribers[i] == null){
+                subscribers[i] = subscriber;
+                i = subscribers.length;
 
+            }
+        }
     }
 
     @Override
@@ -37,6 +43,10 @@ public class NewsPaperPublisher implements Publisher {
 
     @Override
     public void publish(Readable readable) {
+        for (Subscriber subscriber: subscribers ) {
+            subscriber.update(readable);
+        }
+
 
     }
 }

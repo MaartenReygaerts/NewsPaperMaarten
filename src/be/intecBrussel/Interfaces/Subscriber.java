@@ -1,5 +1,5 @@
 package be.intecBrussel.Interfaces;
 
 public interface Subscriber {
-    void update();
+    void update(Readable readable);
 }
